@@ -68,6 +68,21 @@ public class Controle {
         return acao.findByOrderByIdade();
     }
 
+    @GetMapping("/api/nomeContem")// == like no banco de dados
+    public List<Pessoa> nomeContem(){
+        return acao.findByNomeContaining("m");
+    }
+
+    @GetMapping("/api/iniciaCom")
+    public List<Pessoa> iniciaCom(){
+        return acao.findByNomeStartsWith("m");
+    }
+
+    @GetMapping("/api/terminaCom")
+    public List<Pessoa> terminaCom(){
+        return acao.findByNomeEndsWith("on");
+    }
+
     @GetMapping("")
     public String mensagem(){
         return "Hello World!";

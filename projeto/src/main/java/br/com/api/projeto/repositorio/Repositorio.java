@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+//import org.springframework.stereotype.Repository;
 
 import br.com.api.projeto.modelo.Pessoa;
 
-@Repository
+//@Repository
 public interface Repositorio extends CrudRepository<Pessoa, Integer>{
     
     List<Pessoa> findAll();
@@ -32,4 +32,6 @@ public interface Repositorio extends CrudRepository<Pessoa, Integer>{
 
     @Query(value = "SELECT * FROM pessoas WHERE idade >= :idade", nativeQuery = true)
     List<Pessoa> idadeMaiorIgual(int idade);
+
+    int countByCodigo(int codigo);
 }

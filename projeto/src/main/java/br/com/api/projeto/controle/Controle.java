@@ -2,7 +2,6 @@ package br.com.api.projeto.controle;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.projeto.modelo.Pessoa;
 import br.com.api.projeto.repositorio.Repositorio;
+import br.com.api.projeto.servico.Servico;
 
 
 @RestController
@@ -23,32 +23,33 @@ public class Controle {
     
     @Autowired
     private Repositorio acao;
+    
+    @Autowired
+    private Servico servico;
 
     @PostMapping("/api")
-    public Pessoa cadastrar(@RequestBody Pessoa obj){
-        return acao.save(obj);
+    public ResponseEntity<?> cadastrar(@RequestBody Pessoa obj){
+        return servico.cadastrar(obj);
     }
 
-    @GetMapping("api")
-    public List<Pessoa> selecionar(){
-        return acao.findAll();
+    @GetMapping("/api")
+    public ResponseEntity<?> selecionar(){
+        return servico.selecionar();
     }
 
     @GetMapping("/api/{codigo}")
-    public Pessoa selecionarPeloCodigo(@PathVariable int codigo){
-        return acao.findByCodigo(codigo);
+    public ResponseEntity<?> selecionarPeloCodigo(@PathVariable int codigo){
+        return servico.selecionarPeloCodigo(codigo);
     }
 
     @PutMapping("/api")
-    public Pessoa editar(@RequestBody Pessoa obj){
-        return acao.save(obj);
+    public ResponseEntity<?> editar(@RequestBody Pessoa obj){
+        return servico.editar(obj);
     }
 
     @DeleteMapping("/api/{codigo}")
-    public void remover(@PathVariable int codigo){
-        Pessoa obj = selecionarPeloCodigo(codigo);
-
-        acao.delete(obj);
+    public ResponseEntity<?> remover(@PathVariable int codigo){
+        return servico.remover(codigo);
     }
 
     @GetMapping("/api/contador")
